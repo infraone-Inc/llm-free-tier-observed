@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this dataset, please cite it as below."
+title: "LLM free tier observed"
+type: dataset
+authors:
+  - name: "InfraOne Inc."
+    website: "https://infraone.jp/"
+url: "https://infraone.jp/data/llm-free-tier/"
+repository-code: "https://github.com/infraone-Inc/llm-free-tier-observed"
+license: CC-BY-4.0
+version: "2026-10-04"
+date-released: "2026-10-04"

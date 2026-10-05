@@ -1,0 +1,671 @@
+{
+ "dataset": "llm-free-tier-observed",
+ "version": "2026-10-04",
+ "publisher": "株式会社インフラワン (InfraOne Inc.)",
+ "url": "https://infraone.jp/data/llm-free-tier/",
+ "license": "CC BY 4.0",
+ "window_days": 60,
+ "note": "当社の観測。当社の業務の呼び出し (無料枠・1事業者1鍵) の記録から集計し、追加の問い合わせはしていない。失敗の件数には、上限に当たっている間の当社の再確認も含む (件数は当社の呼び出し方に左右される)。2026-10-01 以前は、上限に当たると当社の側で数時間〜24時間止めていたので、その間の観測は無い。",
+ "note_en": "Observed by InfraOne from its own production calls (free tiers, one key per provider); no extra requests were made. Failure counts include our own re-checks while limited, so they depend on our call pattern. Until 2026-10-01 our side paused a provider for hours after a limit, so there are no observations during those pauses.",
+ "method": {
+  "sources": [
+   "application error log (status and response body; bodies truncated to 180 chars before 2026-10-02)",
+   "scrubbed full response bodies (from 2026-10-02)",
+   "successful call log (timestamp, provider, model)"
+  ],
+  "classification": "response body patterns (classify() in engine/freetier.py)",
+  "reset_check": "for each documented reset after a daily-limit error, whether our first call within 6 hours after the reset succeeded",
+  "replicate": "call the provider's free tier from one project/account, log every non-2xx response body and every success timestamp with the model name, and compute the same aggregates over the same window",
+  "excluded_providers": {
+   "mistral": "商用規約 6.1 が性能の情報を Mistral の機密情報に含めるため公開しない (https://legal.mistral.ai/terms/commercial-terms-of-service)",
+   "nvidia": "試用の規約で評価専用のため公開しない",
+   "claude": "CLI の契約枠 (無料枠の API ではない)",
+   "codex": "CLI の契約枠 (無料枠の API ではない)",
+   "cerebras": "無料枠なし",
+   "chatgpt": "前払いの残高 0 で無効"
+  }
+ },
+ "providers": {
+  "cloudflare": {
+   "name": "Cloudflare Workers AI (無料枠)",
+   "name_en": "Cloudflare Workers AI (free allocation)",
+   "documented": [
+    {
+     "claim": "1日 10,000 ニューロンまで無料",
+     "claim_en": "10,000 Neurons per day at no charge",
+     "url": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+     "checked": "2026-10-02",
+     "page_updated": "2026-10-01"
+    },
+    {
+     "claim": "上限は毎日 00:00 UTC に戻る",
+     "claim_en": "All limits reset daily at 00:00 UTC",
+     "url": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+     "checked": "2026-10-02",
+     "page_updated": "2026-10-01"
+    }
+   ],
+   "reset": {
+    "kind": "utc_midnight"
+   },
+   "observed_notes": [],
+   "observed": {
+    "period": [
+     "2026-09-22",
+     "2026-10-04"
+    ],
+    "successful_calls": 515,
+    "failed_calls": 6453,
+    "failure_rate": 0.926,
+    "models_succeeded": {
+     "@cf/meta/llama-3.3-70b-instruct-fp8-fast": 267,
+     "@cf/openai/gpt-oss-120b": 130,
+     "@cf/mistralai/mistral-small-3.1-24b-instruct": 93,
+     "@cf/qwen/qwen3.8-27b": 25
+    },
+    "kinds": {
+     "quota_day": {
+      "label": "1日の無料の割り当てを使い切った",
+      "count": 6450,
+      "days_with_event": 12,
+      "by_hour_utc": [
+       212,
+       81,
+       169,
+       196,
+       152,
+       77,
+       199,
+       234,
+       219,
+       231,
+       237,
+       242,
+       380,
+       398,
+       375,
+       396,
+       437,
+       433,
+       455,
+       306,
+       292,
+       260,
+       252,
+       217
+      ],
+      "body_templates": [
+       {
+        "text": "{\"errors\":[{\"message\":\"AiError: AiError: you have used up your daily free allocation of 10,000 neuro",
+        "n": 6450
+       }
+      ],
+      "details": {},
+      "reset_check": {
+       "resets": 12,
+       "first_call_after_reset_succeeded": 4,
+       "first_call_after_reset_still_limited": 7,
+       "no_call_within_6h_or_other_error": 1,
+       "minutes_to_first_success_after_reset": {
+        "n": 7,
+        "median": 28.6,
+        "max": 152.5,
+        "values": [
+         29,
+         9,
+         3,
+         13,
+         40,
+         83,
+         152
+        ],
+        "caveat": "戻り時刻の15分以内に当社の呼び出しがあった日だけ。当社の呼び出しの間隔 (数分) を含む"
+       }
+      }
+     },
+     "other": {
+      "label": "その他",
+      "count": 1,
+      "days_with_event": 1,
+      "by_hour_utc": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "body_templates": [
+       {
+        "text": "error code: 502",
+        "n": 1
+       }
+      ],
+      "details": {},
+      "hours_to_next_success": {
+       "n": 1,
+       "median": 9.8,
+       "p90": 9.8,
+       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
+      }
+     },
+     "timeout": {
+      "label": "応答の時間切れ",
+      "count": 2,
+      "days_with_event": 1,
+      "by_hour_utc": [
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "body_templates": [
+       {
+        "text": "The read operation timed out",
+        "n": 2
+       }
+      ],
+      "details": {},
+      "hours_to_next_success": {
+       "n": 2,
+       "median": 0.0,
+       "p90": 0.0,
+       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
+      }
+     }
+    }
+   }
+  },
+  "gemini": {
+   "name": "Google Gemini API (無料枠)",
+   "name_en": "Google Gemini API (free tier)",
+   "documented": [
+    {
+     "claim": "上限はプロジェクトごと (API キーごとではない)",
+     "claim_en": "Rate limits are applied per project, not per API key",
+     "url": "https://ai.google.dev/gemini-api/docs/rate-limits",
+     "checked": "2026-10-02",
+     "page_updated": "2026-09-02"
+    },
+    {
+     "claim": "1日の回数 (RPD) は太平洋時間の0時に戻る",
+     "claim_en": "Requests per day (RPD) quotas reset at midnight Pacific time",
+     "url": "https://ai.google.dev/gemini-api/docs/rate-limits",
+     "checked": "2026-10-02",
+     "page_updated": "2026-09-02"
+    },
+    {
+     "claim": "無料枠の数値はページに載っておらず、AI Studio で確かめるよう案内している",
+     "claim_en": "The page does not list free-tier numbers; it points to AI Studio for active limits",
+     "url": "https://ai.google.dev/gemini-api/docs/rate-limits",
+     "checked": "2026-10-02",
+     "page_updated": "2026-09-02"
+    }
+   ],
+   "reset": {
+    "kind": "pacific_midnight"
+   },
+   "observed_notes": [
+    {
+     "claim": "日の上限の 429 の本文が示した上限名は GenerateRequestsPerDayPerProjectPerModel-FreeTier、値は 20 (1プロジェクト・1モデルあたり1日20回)。文書のページには無料枠の数値が無い",
+     "claim_en": "The daily-limit 429 body named the quota GenerateRequestsPerDayPerProjectPerModel-FreeTier with value 20 (20 requests per day per project per model). The documentation page lists no free-tier numbers",
+     "observed": "2026-10-02",
+     "n": 1,
+     "note": "2026-10-02 からは本文を全文で残すので、以後の観測で件数が増える"
+    }
+   ],
+   "observed": {
+    "period": [
+     "2026-08-22",
+     "2026-10-03"
+    ],
+    "successful_calls": 1632,
+    "failed_calls": 3011,
+    "failure_rate": 0.649,
+    "models_succeeded": {
+     "gemini-3.7-flash": 965,
+     "gemini-3.5-flash": 667
+    },
+    "kinds": {
+     "overloaded": {
+      "label": "事業者の混雑 (503)",
+      "count": 374,
+      "days_with_event": 42,
+      "by_hour_utc": [
+       15,
+       12,
+       6,
+       12,
+       7,
+       6,
+       13,
+       20,
+       31,
+       23,
+       16,
+       20,
+       23,
+       28,
+       13,
+       24,
+       5,
+       22,
+       27,
+       14,
+       9,
+       12,
+       10,
+       6
+      ],
+      "body_templates": [
+       {
+        "text": "{ \"error\": { \"code\": 503, \"message\": \"This model is currently experiencing high demand. Spikes in de",
+        "n": 373
+       },
+       {
+        "text": "{ \"error\": { \"code\": 503, \"message\": \"The service is currently unavailable.\", \"status\": \"UNAVAILABLE",
+        "n": 1
+       }
+      ],
+      "details": {},
+      "hours_to_next_success": {
+       "n": 374,
+       "median": 1.5,
+       "p90": 9.0,
+       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
+      }
+     },
+     "timeout": {
+      "label": "応答の時間切れ",
+      "count": 94,
+      "days_with_event": 17,
+      "by_hour_utc": [
+       2,
+       0,
+       1,
+       0,
+       2,
+       4,
+       7,
+       8,
+       0,
+       6,
+       1,
+       8,
+       9,
+       0,
+       4,
+       9,
+       8,
+       5,
+       14,
+       2,
+       1,
+       2,
+       1,
+       0
+      ],
+      "body_templates": [
+       {
+        "text": "The read operation timed out",
+        "n": 94
+       }
+      ],
+      "details": {},
+      "hours_to_next_success": {
+       "n": 94,
+       "median": 3.5,
+       "p90": 12.0,
+       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
+      }
+     },
+     "other": {
+      "label": "その他",
+      "count": 7,
+      "days_with_event": 2,
+      "by_hour_utc": [
+       1,
+       2,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "body_templates": [
+       {
+        "text": "<urlopen error EOF occurred in violation of protocol (_ssl.c:2406)>",
+        "n": 6
+       },
+       {
+        "text": "{ \"error\": { \"code\": 500, \"message\": \"Internal error encountered.\", \"status\": \"INTERNAL\" } }",
+        "n": 1
+       }
+      ],
+      "details": {},
+      "hours_to_next_success": {
+       "n": 7,
+       "median": 0.7,
+       "p90": 1.9,
+       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
+      }
+     },
+     "quota_day": {
+      "label": "上限 (本文の冒頭だけでは分・日の区別が付かない。回復までの時間で日の上限と判断)",
+      "count": 2536,
+      "days_with_event": 18,
+      "by_hour_utc": [
+       62,
+       76,
+       137,
+       151,
+       106,
+       97,
+       123,
+       33,
+       44,
+       43,
+       89,
+       142,
+       80,
+       99,
+       116,
+       93,
+       105,
+       205,
+       236,
+       219,
+       75,
+       70,
+       81,
+       54
+      ],
+      "body_templates": [
+       {
+        "text": "{ \"error\": { \"code\": 429, \"message\": \"You exceeded your current quota, please check your plan and bi",
+        "n": 2536
+       }
+      ],
+      "details": {
+       "quota_ids": [
+        "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+       ],
+       "quota_values": [
+        20
+       ],
+       "retry_delay_s_samples": {
+        "median": 54546.0,
+        "n": 11
+       },
+       "models": [
+        "gemini-3.5-flash",
+        "gemini-3.7-flash"
+       ]
+      },
+      "reset_check": {
+       "resets": 18,
+       "first_call_after_reset_succeeded": 13,
+       "first_call_after_reset_still_limited": 0,
+       "no_call_within_6h_or_other_error": 5,
+       "minutes_to_first_success_after_reset": {
+        "n": 7,
+        "median": 1.6,
+        "max": 8.4,
+        "values": [
+         8,
+         3,
+         0,
+         5,
+         1,
+         2,
+         0
+        ],
+        "caveat": "戻り時刻の15分以内に当社の呼び出しがあった日だけ。当社の呼び出しの間隔 (数分) を含む"
+       }
+      }
+     }
+    }
+   }
+  },
+  "qwen": {
+   "name": "Alibaba Cloud Model Studio (Qwen、国際版・シンガポール)",
+   "name_en": "Alibaba Cloud Model Studio (Qwen, international / Singapore)",
+   "documented": [
+    {
+     "claim": "無料枠はモデルごとに通常 100万 tokens、有効期間 90日 (モデル間で共有しない)",
+     "claim_en": "Free quota is typically 1,000,000 tokens per model, valid for 90 days, not shared across models",
+     "url": "https://www.alibabacloud.com/help/en/model-studio/new-free-quota",
+     "checked": "2026-10-02",
+     "page_updated": "2026-09-22"
+    },
+    {
+     "claim": "「無料枠のみ」を有効にすると、使い切った時に AllocationQuota.FreeTierOnly を返して止まる (既定は無効で従量課金に移る)",
+     "claim_en": "With 'Free Quota Only' enabled, exhausted quota returns AllocationQuota.FreeTierOnly (disabled by default: usage converts to pay-as-you-go)",
+     "url": "https://www.alibabacloud.com/help/en/model-studio/new-free-quota",
+     "checked": "2026-10-02",
+     "page_updated": "2026-09-22"
+    }
+   ],
+   "reset": {
+    "kind": "none"
+   },
+   "observed_notes": [],
+   "observed": {
+    "period": [
+     "2026-08-13",
+     "2026-10-04"
+    ],
+    "successful_calls": 3797,
+    "failed_calls": 88,
+    "failure_rate": 0.023,
+    "models_succeeded": {
+     "qwen-plus": 1669,
+     "qwen-max": 1074,
+     "qwen-plus-2025-07-28": 805,
+     "qwen3.5-plus-2026-02-15": 154,
+     "qwen3-max": 61,
+     "qwen3.7-plus": 34
+    },
+    "kinds": {
+     "timeout": {
+      "label": "応答の時間切れ",
+      "count": 22,
+      "days_with_event": 3,
+      "by_hour_utc": [
+       0,
+       0,
+       0,
+       6,
+       4,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       4,
+       0,
+       0,
+       1,
+       1,
+       2,
+       1,
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      "body_templates": [
+       {
+        "text": "The read operation timed out",
+        "n": 16
+       },
+       {
+        "text": "<urlopen error timed out>",
+        "n": 6
+       }
+      ],
+      "details": {},
+      "hours_to_next_success": {
+       "n": 22,
+       "median": 1.4,
+       "p90": 3.5,
+       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
+      }
+     },
+     "other": {
+      "label": "その他",
+      "count": 16,
+      "days_with_event": 5,
+      "by_hour_utc": [
+       3,
+       2,
+       4,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       1,
+       3,
+       0,
+       0,
+       1
+      ],
+      "body_templates": [
+       {
+        "text": "{\"error\":{\"message\":\"Incorrect API key provided. For details, see: https://www.alibabacloud.com/help",
+        "n": 9
+       },
+       {
+        "text": "{\"error\":{\"message\":\"Model is not supported in current workspace service site\",\"id\":\"<id>\",\"type\":\"M",
+        "n": 5
+       },
+       {
+        "text": "local endpoint returned no text (local-openai, length)",
+        "n": 1
+       }
+      ],
+      "details": {},
+      "hours_to_next_success": {
+       "n": 7,
+       "median": 14.9,
+       "p90": 30.1,
+       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
+      }
+     },
+     "quota_total": {
+      "label": "無料枠の総量を使い切った (Free Quota Only で停止)",
+      "count": 50,
+      "days_with_event": 9,
+      "by_hour_utc": [
+       3,
+       6,
+       1,
+       2,
+       1,
+       3,
+       0,
+       3,
+       1,
+       1,
+       1,
+       3,
+       1,
+       3,
+       1,
+       1,
+       2,
+       2,
+       0,
+       7,
+       2,
+       1,
+       1,
+       4
+      ],
+      "body_templates": [
+       {
+        "text": "{\"error\":{\"message\":\"Free quota exhausted. To continue accessing the model on a paid basis, please a",
+        "n": 39
+       },
+       {
+        "text": "{\"error\":{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"Allocation quota: free tier only\"}}",
+        "n": 11
+       }
+      ],
+      "details": {}
+     }
+    }
+   }
+  }
+ }
+}
