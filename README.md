@@ -3,25 +3,20 @@
 What InfraOne Inc. observed in its own production calls to the free tiers of LLM APIs: the kinds of errors returned (rate limits, overloads and others) and whether access came back after the documented reset. This is not official information from the providers.
 
 - Canonical page: https://infraone.jp/data/llm-free-tier/ (Japanese) / https://infraone.jp/en/data/llm-free-tier/ (English)
-- Version: 2026-10-05 (updated daily; the window is the last 60 days)
+- Version: 2026-10-09 (updated daily; the window is the last 60 days)
 - Providers: Alibaba Cloud Model Studio (Qwen, international / Singapore), Cloudflare Workers AI (free allocation), Google Gemini API (free tier), Groq (free plan), OpenRouter (free models, :free)
 - Data: `data/latest.json` (identical to https://infraone.jp/data/llm-free-tier/latest.json) and `data/history/<date>.json`
 - License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 ## How to cite
 
-InfraOne Inc. (2026). *LLM free tier observed* (version 2026-10-05). https://infraone.jp/data/llm-free-tier/
+InfraOne Inc. (2026). *LLM free tier observed* (version 2026-10-09). https://infraone.jp/data/llm-free-tier/
 
 See `CITATION.cff`.
 
 ## Method
 
-- Source: application error log (status and response body; bodies truncated to 180 chars before 2026-10-02)
-- Source: scrubbed full response bodies (from 2026-10-02)
-- Source: successful call log (timestamp, provider, model)
-- Classification: response body patterns (classify() in engine/freetier.py)
 - Reset check: for each documented reset after a daily-limit error, whether our first call within 6 hours after the reset succeeded
-- Replicate: call the provider's free tier from one project/account, log every non-2xx response body and every success timestamp with the model name, and compute the same aggregates over the same window
 
 ## Caveats
 
@@ -38,14 +33,14 @@ No warranty: the data is provided as is, without warranty of any kind.
 株式会社インフラワンが自社の業務の呼び出しで観測した、LLM の API の無料枠の失敗の種類 (上限・混雑など) と、公表されたリセットの後に使えたかの記録です。各事業者の公式の情報ではありません。
 
 - 正本: https://infraone.jp/data/llm-free-tier/ (日本語) / https://infraone.jp/en/data/llm-free-tier/ (英語)
-- 版: 2026-10-05 (毎日更新。集計の期間は直近 60 日)
+- 版: 2026-10-09 (毎日更新。集計の期間は直近 60 日)
 - 事業者: Alibaba Cloud Model Studio (Qwen、国際版・シンガポール)、Cloudflare Workers AI (無料枠)、Google Gemini API (無料枠)、Groq (無料の枠)、OpenRouter (無料のモデル :free)
 - データ: `data/latest.json` (https://infraone.jp/data/llm-free-tier/latest.json と同じ内容) と `data/history/<日付>.json`
 - ライセンス: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 ## 引用の仕方
 
-株式会社インフラワン (2026)。『LLM 無料枠の観測データ』(版 2026-10-05)。https://infraone.jp/data/llm-free-tier/
+株式会社インフラワン (2026)。『LLM 無料枠の観測データ』(版 2026-10-09)。https://infraone.jp/data/llm-free-tier/
 
 ## 注意
 
