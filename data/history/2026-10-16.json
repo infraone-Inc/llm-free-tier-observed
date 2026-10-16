@@ -1,0 +1,1146 @@
+{
+ "dataset": "llm-free-tier-observed",
+ "version": "2026-10-16",
+ "publisher": "株式会社インフラワン (InfraOne Inc.)",
+ "url": "https://infraone.jp/data/llm-free-tier/",
+ "license": "CC BY 4.0",
+ "window_days": 60,
+ "note": "当社の観測。当社の業務の呼び出し (無料枠。事業者によっては用途ごとに分けた複数の鍵の記録を事業者ごとに合算。無料の枠を足し合わせる使い方はしていない) の記録から集計し、追加の問い合わせはしていない。失敗の件数には、上限に当たっている間の当社の再確認も含む (件数は当社の呼び出し方に左右される)。2026-10-01 以前は、上限に当たると当社の側で数時間〜24時間止めていたので、その間の観測は無い。",
+ "note_en": "Observed by InfraOne from its own production calls (free tiers; where we use several keys separated by purpose for one provider, they are combined per provider; we do not pool keys to raise free limits); no extra requests were made. Failure counts include our own re-checks while limited, so they depend on our call pattern. Until 2026-10-01 our side paused a provider for hours after a limit, so there are no observations during those pauses.",
+ "method": {
+  "reset_check": "for each documented reset after a daily-limit error, whether our first call within 6 hours after the reset succeeded"
+ },
+ "providers": {
+  "cloudflare": {
+   "name": "Cloudflare Workers AI (無料枠)",
+   "name_en": "Cloudflare Workers AI (free allocation)",
+   "documented": [
+    {
+     "claim": "1日 10,000 ニューロンまで無料",
+     "claim_en": "10,000 Neurons per day at no charge",
+     "url": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+     "checked": "2026-10-02",
+     "page_updated": "2026-10-01"
+    },
+    {
+     "claim": "上限は毎日 00:00 UTC に戻る",
+     "claim_en": "All limits reset daily at 00:00 UTC",
+     "url": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+     "checked": "2026-10-02",
+     "page_updated": "2026-10-01"
+    }
+   ],
+   "replicate": "再現の手順: 当社の業務の呼び出しだけを記録した (計測のための追加の呼び出しは無い)。Workers AI の REST API (/accounts/<id>/ai/run/<モデル>) を当社のサーバから呼び、2xx 以外の応答の本文と成功の時刻・モデル名をすべて残し、上の観測の期間で同じ集計をした (呼んだモデルは「成功したモデル」、頻度は業務の量に従い一定ではない)。",
+   "replicate_en": "How to replicate: we recorded only our own production calls (no extra calls were made for measurement) to the Workers AI REST API (/accounts/<id>/ai/run/<model>) from our servers, logged every non-2xx response body and every success timestamp with the model name, and aggregated them over the observed period above (models are listed under 'Models that answered'; call frequency follows our workload and is not constant).",
+   "reset": {
+    "kind": "utc_midnight"
+   },
+   "observed_notes": [],
+   "observed": {
+    "period": [
+     "2026-09-22",
+     "2026-10-16"
+    ],
+    "successful_calls": 777,
+    "failed_calls": 6734,
+    "failure_rate": 0.897,
+    "models_succeeded": {
+     "@cf/meta/llama-3.3-70b-instruct-fp8-fast": 314,
+     "@cf/openai/gpt-oss-120b": 213,
+     "@cf/mistralai/mistral-small-3.1-24b-instruct": 171,
+     "@cf/cloudflare/clef-flash": 49,
+     "@cf/qwen/qwen3.8-27b": 30
+    },
+    "kinds": {
+     "quota_day": {
+      "label": "1日の無料の割り当てを使い切った",
+      "count": 6466,
+      "days_with_event": 19,
+      "by_hour_utc": [
+       216,
+       81,
+       169,
+       196,
+       152,
+       78,
+       201,
+       234,
+       219,
+       231,
+       237,
+       242,
+       385,
+       398,
+       376,
+       396,
+       437,
+       433,
+       455,
+       307,
+       294,
+       260,
+       252,
+       217
+      ],
+      "body_templates": [
+       {
+        "text": "{\"errors\":[{\"message\":\"AiError: AiError: you have used up your daily free allocation of 10,000 neuro",
+        "n": 6466
+       }
+      ],
+      "details": {},
+      "reset_check": {
+       "resets": 19,
+       "first_call_after_reset_succeeded": 8,
+       "first_call_after_reset_still_limited": 11,
+       "no_call_within_6h_or_other_error": 0,
+       "minutes_to_first_success_after_reset": {
+        "n": 11,
+        "median": 9.0,
+        "max": 112.6,
+        "values": [
+         29,
+         9,
+         3,
+         13,
+         40,
+         83,
+         113,
+         2,
+         2,
+         1,
+         3
+        ],
+        "caveat": "戻り時刻の15分以内に当社の呼び出しがあった日だけ。当社の呼び出しの間隔 (数分) を含む"
+       }
+      }
+     },
+     "other": {
+      "label": "その他",
+      "count": 237,
+      "days_with_event": 8,
+      "by_hour_utc": [
+       7,
+       0,
+       3,
+       5,
+       5,
+       6,
+       17,
+       3,
+       8,
+       0,
+       6,
+       9,
+       19,
+       11,
+       18,
+       12,
+       16,
+       18,
+       17,
+       13,
+       6,
+       14,
+       12,
+       12
+      ],
+      "body_templates": [
+       {
+        "text": "{\"errors\":[{\"message\":\"AiError: Bad input: Error: required properties at '/' are 'model,state,questi",
+        "n": 230
+       },
+       {
+        "text": "reply was not the requested token: Alright, what's next?",
+        "n": 3
+       },
+       {
+        "text": "reply was not the requested token: Alright, what would you like to talk about or ask me?",
+        "n": 2
+       }
+      ],
+      "details": {},
+      "hours_to_next_success": {
+       "n": 236,
+       "median": 8.5,
+       "p90": 41.2,
+       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
+      }
+     },
+     "timeout": {
+      "label": "応答の時間切れ",
+      "count": 31,
+      "days_with_event": 8,
+      "by_hour_utc": [
+       0,
+       2,
+       0,
+       0,
+       4,
+       2,
+       0,
+       0,
+       0,
+       0,
+       6,
+       3,
+       3,
+       0,
+       1,
+       1,
+       1,
+       3,
+       3,
+       0,
+       2,
+       0,
+       0,
+       0
+      ],
+      "body_templates": [
+       {
+        "text": "The read operation timed out",
+        "n": 31
+       }
+      ],
+      "details": {},
+      "hours_to_next_success": {
+       "n": 31,
+       "median": 0.1,
+       "p90": 5.1,
+       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
+      }
+     }
+    }
+   }
+  },
+  "gemini": {
+   "name": "Google Gemini API (無料枠)",
+   "name_en": "Google Gemini API (free tier)",
+   "documented": [
+    {
+     "claim": "上限はプロジェクトごと (API キーごとではない)",
+     "claim_en": "Rate limits are applied per project, not per API key",
+     "url": "https://ai.google.dev/gemini-api/docs/rate-limits",
+     "checked": "2026-10-02",
+     "page_updated": "2026-09-02"
+    },
+    {
+     "claim": "1日の回数 (RPD) は太平洋時間の0時に戻る",
+     "claim_en": "Requests per day (RPD) quotas reset at midnight Pacific time",
+     "url": "https://ai.google.dev/gemini-api/docs/rate-limits",
+     "checked": "2026-10-02",
+     "page_updated": "2026-09-02"
+    },
+    {
+     "claim": "無料枠の数値はページに載っておらず、AI Studio で確かめるよう案内している",
+     "claim_en": "The page does not list free-tier numbers; it points to AI Studio for active limits",
+     "url": "https://ai.google.dev/gemini-api/docs/rate-limits",
+     "checked": "2026-10-02",
+     "page_updated": "2026-09-02"
+    }
+   ],
+   "reset": {
+    "kind": "pacific_midnight"
+   },
+   "observed_notes": [
+    {
+     "claim": "日の上限の 429 の本文が示した上限名は GenerateRequestsPerDayPerProjectPerModel-FreeTier、値は 20 (1プロジェクト・1モデルあたり1日20回)。文書のページには無料枠の数値が無い",
+     "claim_en": "The daily-limit 429 body named the quota GenerateRequestsPerDayPerProjectPerModel-FreeTier with value 20 (20 requests per day per project per model). The documentation page lists no free-tier numbers",
+     "observed": "2026-10-02",
+     "n": 1,
+     "note": "2026-10-02 からは本文を全文で残すので、以後の観測で件数が増える"
+    }
+   ],
+   "observed": {
+    "period": [
+     "2026-08-22",
+     "2026-10-16"
+    ],
+    "successful_calls": 5641,
+    "failed_calls": 4372,
+    "failure_rate": 0.437,
+    "models_succeeded": {
+     "gemini-3.5-flash-lite": 1924,
+     "gemini-3.1-flash-lite": 1409,
+     "gemini-3.7-flash": 991,
+     "gemini-3.5-flash": 761,
+     "gemma-4-26b-a4b-it": 308,
+     "gemini-3.6-flash": 131,
+     "gemini-3.8-flash": 117
+    },
+    "kinds": {
+     "overloaded": {
+      "label": "事業者の混雑 (503)",
+      "count": 885,
+      "days_with_event": 53,
+      "by_hour_utc": [
+       16,
+       26,
+       16,
+       19,
+       24,
+       10,
+       15,
+       55,
+       56,
+       38,
+       52,
+       46,
+       42,
+       45,
+       29,
+       35,
+       70,
+       59,
+       80,
+       65,
+       44,
+       18,
+       14,
+       11
+      ],
+      "body_templates": [
+       {
+        "text": "{ \"error\": { \"code\": 503, \"message\": \"This model is currently experiencing high demand. Spikes in de",
+        "n": 884
+       },
+       {
+        "text": "{ \"error\": { \"code\": 503, \"message\": \"The service is currently unavailable.\", \"status\": \"UNAVAILABLE",
+        "n": 1
+       }
+      ],
+      "details": {},
+      "hours_to_next_success": {
+       "n": 885,
+       "median": 0.0,
+       "p90": 5.5,
+       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
+      }
+     },
+     "timeout": {
+      "label": "応答の時間切れ",
+      "count": 652,
+      "days_with_event": 29,
+      "by_hour_utc": [
+       10,
+       15,
+       19,
+       12,
+       22,
+       18,
+       19,
+       37,
+       39,
+       24,
+       21,
+       37,
+       29,
+       25,
+       30,
+       55,
+       77,
+       37,
+       50,
+       22,
+       14,
+       16,
+       14,
+       10
+      ],
+      "body_templates": [
+       {
+        "text": "The read operation timed out",
+        "n": 652
+       }
+      ],
+      "details": {},
+      "hours_to_next_success": {
+       "n": 652,
+       "median": 0.0,
+       "p90": 1.4,
+       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
+      }
+     },
+     "other": {
+      "label": "その他",
+      "count": 217,
+      "days_with_event": 11,
+      "by_hour_utc": [
+       3,
+       11,
+       5,
+       4,
+       5,
+       6,
+       11,
+       10,
+       5,
+       1,
+       3,
+       21,
+       23,
+       8,
+       5,
+       8,
+       14,
+       27,
+       13,
+       9,
+       7,
+       1,
+       15,
+       2
+      ],
+      "body_templates": [
+       {
+        "text": "{ \"error\": { \"code\": 500, \"message\": \"Internal error encountered.\", \"status\": \"INTERNAL\" } }",
+        "n": 211
+       },
+       {
+        "text": "<urlopen error EOF occurred in violation of protocol (_ssl.c:2406)>",
+        "n": 6
+       }
+      ],
+      "details": {},
+      "hours_to_next_success": {
+       "n": 217,
+       "median": 0.0,
+       "p90": 0.1,
+       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
+      }
+     },
+     "quota_day": {
+      "label": "上限 (本文の冒頭だけでは分・日の区別が付かない。回復までの時間で日の上限と判断)",
+      "count": 2591,
+      "days_with_event": 29,
+      "by_hour_utc": [
+       62,
+       79,
+       141,
+       151,
+       113,
+       101,
+       123,
+       33,
+       45,
+       45,
+       91,
+       147,
+       85,
+       100,
+       117,
+       94,
+       105,
+       206,
+       239,
+       224,
+       76,
+       76,
+       83,
+       55
+      ],
+      "body_templates": [
+       {
+        "text": "{ \"error\": { \"code\": 429, \"message\": \"You exceeded your current quota, please check your plan and bi",
+        "n": 2591
+       }
+      ],
+      "details": {
+       "quota_ids": [
+        "GenerateContentInputTokensPerModelPerDay-FreeTier",
+        "GenerateContentInputTokensPerModelPerMinute-FreeTier",
+        "GenerateRequestsPerDayPerProjectPerModel-FreeTier",
+        "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
+       ],
+       "quota_values": [
+        20
+       ],
+       "retry_delay_s_samples": {
+        "median": 46423.0,
+        "n": 66
+       },
+       "models": [
+        "gemini-3.5-flash",
+        "gemini-3.6-flash",
+        "gemini-3.7-flash",
+        "gemini-3.8-flash",
+        "gemini-4-argon"
+       ]
+      },
+      "reset_check": {
+       "resets": 27,
+       "first_call_after_reset_succeeded": 20,
+       "first_call_after_reset_still_limited": 0,
+       "no_call_within_6h_or_other_error": 7,
+       "minutes_to_first_success_after_reset": {
+        "n": 11,
+        "median": 1.6,
+        "max": 13.9,
+        "values": [
+         8,
+         3,
+         0,
+         5,
+         1,
+         2,
+         0,
+         1,
+         5,
+         0,
+         14
+        ],
+        "caveat": "戻り時刻の15分以内に当社の呼び出しがあった日だけ。当社の呼び出しの間隔 (数分) を含む"
+       }
+      }
+     },
+     "quota_minute": {
+      "label": "分の上限 (本文に待ち時間)",
+      "count": 27,
+      "days_with_event": 4,
+      "by_hour_utc": [
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       3,
+       1,
+       0,
+       0,
+       1,
+       4,
+       1,
+       2,
+       0,
+       9,
+       0,
+       2,
+       0
+      ],
+      "body_templates": [
+       {
+        "text": "{ \"error\": { \"code\": 429, \"message\": \"You exceeded your current quota, please check your plan and bi",
+        "n": 27
+       }
+      ],
+      "details": {
+       "quota_ids": [
+        "GenerateContentInputTokensPerModelPerMinute-FreeTier",
+        "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
+       ],
+       "quota_values": [
+        15,
+        16000
+       ],
+       "retry_delay_s_samples": {
+        "median": 36.0,
+        "n": 27
+       },
+       "models": [
+        "gemini-3.5-flash-lite",
+        "gemma-4-26b"
+       ]
+      }
+     }
+    }
+   }
+  },
+  "groq": {
+   "name": "Groq (無料の枠)",
+   "name_en": "Groq (free plan)",
+   "documented": [
+    {
+     "claim": "上限の単位は RPM (分の回数)・RPD (日の回数)・TPM (分のトークン)・TPD (日のトークン) など",
+     "claim_en": "Limits are measured in RPM, RPD, TPM, TPD (and audio seconds per hour/day)",
+     "url": "https://console.groq.com/docs/rate-limits",
+     "checked": "2026-10-05"
+    },
+    {
+     "claim": "上限は組織ごと (利用者ごとではない)",
+     "claim_en": "Rate limits apply at the organization level, not individual users",
+     "url": "https://console.groq.com/docs/rate-limits",
+     "checked": "2026-10-05"
+    },
+    {
+     "claim": "上限を超えると 429 Too Many Requests を返し、retry-after (秒) と x-ratelimit-reset-requests・x-ratelimit-reset-tokens (戻るまでの時間) の見出しを付ける",
+     "claim_en": "Exceeding a limit returns 429 Too Many Requests with retry-after (seconds) and x-ratelimit-reset-requests / x-ratelimit-reset-tokens (time until reset) headers",
+     "url": "https://console.groq.com/docs/rate-limits",
+     "checked": "2026-10-05"
+    },
+    {
+     "claim": "日の上限が戻る時刻は頁に書かれていない",
+     "claim_en": "The page does not state when daily limits reset",
+     "url": "https://console.groq.com/docs/rate-limits",
+     "checked": "2026-10-05"
+    }
+   ],
+   "reset": {
+    "kind": "none"
+   },
+   "observed_notes": [],
+   "observed": {
+    "period": [
+     "2026-10-04",
+     "2026-10-16"
+    ],
+    "successful_calls": 846,
+    "failed_calls": 1640,
+    "failure_rate": 0.66,
+    "models_succeeded": {
+     "openai/gpt-oss-120b": 447,
+     "qwen/qwen3.8-27b": 399
+    },
+    "kinds": {
+     "quota_minute": {
+      "label": "分の上限 (本文に待ち時間)",
+      "count": 527,
+      "days_with_event": 12,
+      "by_hour_utc": [
+       6,
+       0,
+       14,
+       11,
+       11,
+       3,
+       13,
+       13,
+       11,
+       7,
+       12,
+       5,
+       26,
+       20,
+       19,
+       66,
+       53,
+       85,
+       42,
+       7,
+       12,
+       34,
+       34,
+       23
+      ],
+      "body_templates": [
+       {
+        "text": "{\"error\":{\"message\":\"Request too large for model `qwen/qwen3.8-27b` in organization `<id>` service t",
+        "n": 253
+       },
+       {
+        "text": "{\"error\":{\"message\":\"Rate limit reached for model `qwen/qwen3.8-27b` in organization `<id>` service ",
+        "n": 175
+       },
+       {
+        "text": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `<id>` servi",
+        "n": 98
+       }
+      ],
+      "details": {}
+     },
+     "quota_day": {
+      "label": "1日の上限 (本文に PerDay の上限名)",
+      "count": 1102,
+      "days_with_event": 3,
+      "by_hour_utc": [
+       29,
+       9,
+       45,
+       75,
+       100,
+       75,
+       53,
+       68,
+       37,
+       5,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       50,
+       83,
+       86,
+       39,
+       102,
+       101,
+       144
+      ],
+      "body_templates": [
+       {
+        "text": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `<id>` servi",
+        "n": 632
+       },
+       {
+        "text": "{\"error\":{\"message\":\"Rate limit reached for model `qwen/qwen3.8-27b` in organization `<id>` service ",
+        "n": 470
+       }
+      ],
+      "details": {}
+     },
+     "other": {
+      "label": "その他",
+      "count": 4,
+      "days_with_event": 2,
+      "by_hour_utc": [
+       0,
+       0,
+       0,
+       3,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "body_templates": [
+       {
+        "text": "{\"error\":{\"message\":\"Internal Server Error\",\"type\":\"internal_server_error\"}}",
+        "n": 3
+       },
+       {
+        "text": "groq: 推論で枠を使い切り本文が空 (max_tokens=700, reasoning_tokens=698)",
+        "n": 1
+       }
+      ],
+      "details": {},
+      "hours_to_next_success": {
+       "n": 4,
+       "median": 0.0,
+       "p90": 4.4,
+       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
+      }
+     },
+     "timeout": {
+      "label": "応答の時間切れ",
+      "count": 7,
+      "days_with_event": 1,
+      "by_hour_utc": [
+       0,
+       0,
+       0,
+       7,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "body_templates": [
+       {
+        "text": "The read operation timed out",
+        "n": 7
+       }
+      ],
+      "details": {},
+      "hours_to_next_success": {
+       "n": 7,
+       "median": 0.1,
+       "p90": 0.2,
+       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
+      }
+     }
+    }
+   }
+  },
+  "openrouter": {
+   "name": "OpenRouter (無料のモデル :free)",
+   "name_en": "OpenRouter (free models, :free)",
+   "documented": [
+    {
+     "claim": "無料のモデル (:free) は、購入したクレジットの累計が 10 未満なら 毎分20回・1日50回、10 以上なら 毎分20回・1日1000回",
+     "claim_en": "Free models (:free): 20 requests per minute and 50 per day with less than 10 credits purchased; 20 per minute and 1000 per day with 10 or more",
+     "url": "https://openrouter.ai/docs/api-reference/limits",
+     "checked": "2026-10-05"
+    },
+    {
+     "claim": "残高がマイナスだと、無料のモデルでも 402 を返すことがある",
+     "claim_en": "With a negative credit balance you may see 402 errors, including for free models",
+     "url": "https://openrouter.ai/docs/api-reference/limits",
+     "checked": "2026-10-05"
+    },
+    {
+     "claim": "アカウントや API キーを増やしても上限は変わらない (容量を全体で管理している)",
+     "claim_en": "Making additional accounts or API keys will not affect rate limits (capacity is governed globally)",
+     "url": "https://openrouter.ai/docs/api-reference/limits",
+     "checked": "2026-10-05"
+    },
+    {
+     "claim": "日の回数は UTC の日で数えると書くが、戻る時刻は明記していない",
+     "claim_en": "Daily counts refer to the current UTC day; the page does not explicitly state the reset time",
+     "url": "https://openrouter.ai/docs/api-reference/limits",
+     "checked": "2026-10-05"
+    }
+   ],
+   "reset": {
+    "kind": "none"
+   },
+   "observed_notes": [],
+   "observed": {
+    "period": [
+     "2026-10-04",
+     "2026-10-16"
+    ],
+    "successful_calls": 348,
+    "failed_calls": 64,
+    "failure_rate": 0.155,
+    "models_succeeded": {
+     "nvidia/nemotron-3-super-120b-a12b:free": 143,
+     "nvidia/nemotron-3-ultra-550b-a55b:free": 106,
+     "nvidia/nemotron-3.5-lightning:free": 80,
+     "dots-studio/dots-3-note-preview:free": 19
+    },
+    "kinds": {
+     "quota_day": {
+      "label": "1日の上限 (本文に PerDay の上限名)",
+      "count": 10,
+      "days_with_event": 4,
+      "by_hour_utc": [
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       1,
+       0,
+       0,
+       2,
+       0,
+       0,
+       2,
+       1,
+       0,
+       0,
+       0,
+       0,
+       2,
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      "body_templates": [
+       {
+        "text": "{\"error\":{\"message\":\"Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free mo",
+        "n": 10
+       }
+      ],
+      "details": {}
+     },
+     "other": {
+      "label": "その他",
+      "count": 33,
+      "days_with_event": 4,
+      "by_hour_utc": [
+       2,
+       0,
+       5,
+       9,
+       0,
+       12,
+       3,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1
+      ],
+      "body_templates": [
+       {
+        "text": "openrouter: 本文が空 (推論で枠を使い切った可能性、max_tokens=4000、出力 4000 トークン)",
+        "n": 19
+       },
+       {
+        "text": "openrouter: 本文が空 (推論で枠を使い切った可能性、max_tokens=64、出力 64 トークン)",
+        "n": 12
+       },
+       {
+        "text": "{\"error\":{\"message\":\"Provider returned error\",\"code\":502,\"metadata\":{\"raw\":\"{\\\"error\\\":{\\\"message\\\":",
+        "n": 1
+       }
+      ],
+      "details": {},
+      "hours_to_next_success": {
+       "n": 33,
+       "median": 0.2,
+       "p90": 0.5,
+       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
+      }
+     },
+     "timeout": {
+      "label": "応答の時間切れ",
+      "count": 21,
+      "days_with_event": 3,
+      "by_hour_utc": [
+       0,
+       0,
+       0,
+       0,
+       4,
+       4,
+       0,
+       0,
+       4,
+       2,
+       3,
+       4,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "body_templates": [
+       {
+        "text": "The read operation timed out",
+        "n": 21
+       }
+      ],
+      "details": {},
+      "hours_to_next_success": {
+       "n": 21,
+       "median": 0.7,
+       "p90": 1.0,
+       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
+      }
+     }
+    }
+   }
+  },
+  "qwen": {
+   "name": "Alibaba Cloud Model Studio (Qwen、国際版・シンガポール)",
+   "name_en": "Alibaba Cloud Model Studio (Qwen, international / Singapore)",
+   "documented": [
+    {
+     "claim": "無料枠はモデルごとに通常 100万 tokens、有効期間 90日 (モデル間で共有しない)",
+     "claim_en": "Free quota is typically 1,000,000 tokens per model, valid for 90 days, not shared across models",
+     "url": "https://www.alibabacloud.com/help/en/model-studio/new-free-quota",
+     "checked": "2026-10-02",
+     "page_updated": "2026-09-22"
+    },
+    {
+     "claim": "「無料枠のみ」を有効にすると、使い切った時に AllocationQuota.FreeTierOnly を返して止まる (既定は無効で従量課金に移る)",
+     "claim_en": "With 'Free Quota Only' enabled, exhausted quota returns AllocationQuota.FreeTierOnly (disabled by default: usage converts to pay-as-you-go)",
+     "url": "https://www.alibabacloud.com/help/en/model-studio/new-free-quota",
+     "checked": "2026-10-02",
+     "page_updated": "2026-09-22"
+    }
+   ],
+   "reset": {
+    "kind": "none"
+   },
+   "observed_notes": [],
+   "observed": {
+    "period": [
+     "2026-08-17",
+     "2026-10-16"
+    ],
+    "successful_calls": 2720,
+    "failed_calls": 488,
+    "failure_rate": 0.152,
+    "models_succeeded": {
+     "qwen-plus": 1666,
+     "qwen-plus-2025-07-28": 805,
+     "qwen3.5-plus-2026-02-15": 154,
+     "qwen3-max": 61,
+     "qwen3.7-plus": 34
+    },
+    "kinds": {
+     "quota_total": {
+      "label": "無料枠の総量を使い切った (Free Quota Only で停止)",
+      "count": 255,
+      "days_with_event": 20,
+      "by_hour_utc": [
+       17,
+       15,
+       9,
+       12,
+       14,
+       17,
+       8,
+       11,
+       11,
+       7,
+       7,
+       13,
+       11,
+       12,
+       10,
+       7,
+       9,
+       7,
+       6,
+       13,
+       12,
+       8,
+       6,
+       13
+      ],
+      "body_templates": [
+       {
+        "text": "{\"error\":{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"Allocation quota: free tier only\"}}",
+        "n": 216
+       },
+       {
+        "text": "{\"error\":{\"message\":\"Free quota exhausted. To continue accessing the model on a paid basis, please a",
+        "n": 39
+       }
+      ],
+      "details": {}
+     },
+     "other": {
+      "label": "その他",
+      "count": 217,
+      "days_with_event": 14,
+      "by_hour_utc": [
+       16,
+       11,
+       8,
+       10,
+       14,
+       13,
+       8,
+       8,
+       10,
+       7,
+       8,
+       9,
+       11,
+       9,
+       9,
+       6,
+       7,
+       5,
+       6,
+       7,
+       12,
+       7,
+       5,
+       11
+      ],
+      "body_templates": [
+       {
+        "text": "{\"error\":{\"message\":\"Incorrect API key provided. For details, see: https://www.alibabacloud.com/help",
+        "n": 216
+       },
+       {
+        "text": "<urlopen error [SSL: <id>] EOF occurred in violation of protocol (_ssl.c:1000)>",
+        "n": 1
+       }
+      ],
+      "details": {},
+      "hours_to_next_success": {
+       "n": 1,
+       "median": 1.1,
+       "p90": 1.1,
+       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
+      }
+     },
+     "timeout": {
+      "label": "応答の時間切れ",
+      "count": 16,
+      "days_with_event": 2,
+      "by_hour_utc": [
+       0,
+       0,
+       0,
+       6,
+       4,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       4,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "body_templates": [
+       {
+        "text": "The read operation timed out",
+        "n": 16
+       }
+      ],
+      "details": {},
+      "hours_to_next_success": {
+       "n": 16,
+       "median": 0.7,
+       "p90": 2.0,
+       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
+      }
+     }
+    }
+   }
+  }
+ }
+}
