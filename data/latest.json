@@ -1,6 +1,6 @@
 {
  "dataset": "llm-free-tier-observed",
- "version": "2026-11-11",
+ "version": "2026-11-12",
  "publisher": "株式会社インフラワン (InfraOne Inc.)",
  "url": "https://infraone.jp/data/llm-free-tier/",
  "license": "CC BY 4.0",
@@ -39,17 +39,17 @@
    "observed": {
     "period": [
      "2026-09-22",
-     "2026-11-11"
+     "2026-11-12"
     ],
-    "successful_calls": 1351,
-    "failed_calls": 6908,
-    "failure_rate": 0.836,
+    "successful_calls": 1371,
+    "failed_calls": 6909,
+    "failure_rate": 0.834,
     "models_succeeded": {
-     "@cf/openai/gpt-oss-120b": 546,
-     "@cf/meta/llama-3.3-70b-instruct-fp8-fast": 422,
-     "@cf/mistralai/mistral-small-3.1-24b-instruct": 287,
+     "@cf/openai/gpt-oss-120b": 561,
+     "@cf/meta/llama-3.3-70b-instruct-fp8-fast": 424,
+     "@cf/mistralai/mistral-small-3.1-24b-instruct": 289,
      "@cf/cloudflare/clef-flash": 50,
-     "@cf/qwen/qwen3.8-27b": 46
+     "@cf/qwen/qwen3.8-27b": 47
     },
     "kinds": {
      "quota_day": {
@@ -121,7 +121,7 @@
      },
      "other": {
       "label": "その他",
-      "count": 299,
+      "count": 300,
       "days_with_event": 29,
       "by_hour_utc": [
        14,
@@ -138,7 +138,7 @@
        10,
        27,
        15,
-       20,
+       21,
        14,
        16,
        19,
@@ -156,7 +156,7 @@
        },
        {
         "text": "reply was not the requested token=[REDACTED]",
-        "n": 30
+        "n": 31
        },
        {
         "text": "cloudflare: 推論で枠を使い切り本文が空 (max_tokens=64)",
@@ -165,8 +165,8 @@
       ],
       "details": {},
       "hours_to_next_success": {
-       "n": 298,
-       "median": 6.6,
+       "n": 300,
+       "median": 6.5,
        "p90": 38.2,
        "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
       }
@@ -258,61 +258,61 @@
    ],
    "observed": {
     "period": [
-     "2026-09-12",
-     "2026-11-11"
+     "2026-09-13",
+     "2026-11-12"
     ],
-    "successful_calls": 8104,
-    "failed_calls": 5547,
+    "successful_calls": 8140,
+    "failed_calls": 5560,
     "failure_rate": 0.406,
     "models_succeeded": {
-     "gemini-3.5-flash-lite": 3056,
-     "gemini-3.1-flash-lite": 2461,
-     "gemma-4-26b-a4b-it": 753,
+     "gemini-3.5-flash-lite": 3074,
+     "gemini-3.1-flash-lite": 2488,
+     "gemma-4-26b-a4b-it": 769,
      "gemini-3.5-flash": 672,
-     "gemini-3.7-flash": 497,
-     "gemini-3.6-flash": 418,
+     "gemini-3.7-flash": 468,
+     "gemini-3.6-flash": 422,
      "gemini-3.8-flash": 247
     },
     "kinds": {
      "overloaded": {
       "label": "事業者の混雑 (503)",
-      "count": 1449,
+      "count": 1448,
       "days_with_event": 58,
       "by_hour_utc": [
        22,
-       39,
+       38,
        19,
        29,
        37,
        17,
        14,
-       59,
+       58,
        62,
        58,
        65,
        68,
        92,
        127,
-       47,
-       119,
+       49,
+       120,
        140,
        115,
        121,
-       96,
+       95,
        51,
        14,
        7,
-       31
+       30
       ],
       "body_templates": [
        {
         "text": "{ \"error\": { \"code\": 503, \"message\": \"This model is currently experiencing high demand. Spikes in de",
-        "n": 1449
+        "n": 1448
        }
       ],
       "details": {},
       "hours_to_next_success": {
-       "n": 1449,
+       "n": 1448,
        "median": 0.0,
        "p90": 0.5,
        "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
@@ -320,8 +320,8 @@
      },
      "timeout": {
       "label": "応答の時間切れ",
-      "count": 989,
-      "days_with_event": 44,
+      "count": 994,
+      "days_with_event": 45,
       "by_hour_utc": [
        20,
        16,
@@ -336,8 +336,8 @@
        36,
        47,
        68,
-       90,
-       53,
+       94,
+       54,
        72,
        99,
        68,
@@ -351,12 +351,12 @@
       "body_templates": [
        {
         "text": "The read operation timed out",
-        "n": 989
+        "n": 994
        }
       ],
       "details": {},
       "hours_to_next_success": {
-       "n": 989,
+       "n": 994,
        "median": 0.0,
        "p90": 0.4,
        "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
@@ -453,17 +453,17 @@
      },
      "other": {
       "label": "その他",
-      "count": 445,
-      "days_with_event": 36,
+      "count": 454,
+      "days_with_event": 37,
       "by_hour_utc": [
        7,
        9,
        15,
        5,
-       8,
+       9,
        16,
-       22,
-       13,
+       24,
+       15,
        19,
        4,
        11,
@@ -471,8 +471,8 @@
        42,
        20,
        22,
-       41,
-       41,
+       43,
+       43,
        55,
        15,
        11,
@@ -484,12 +484,12 @@
       "body_templates": [
        {
         "text": "{ \"error\": { \"code\": 500, \"message\": \"Internal error encountered.\", \"status\": \"INTERNAL\" } }",
-        "n": 445
+        "n": 454
        }
       ],
       "details": {},
       "hours_to_next_success": {
-       "n": 445,
+       "n": 454,
        "median": 0.0,
        "p90": 0.1,
        "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
@@ -589,20 +589,20 @@
    "observed": {
     "period": [
      "2026-10-04",
-     "2026-11-10"
+     "2026-11-12"
     ],
-    "successful_calls": 1449,
-    "failed_calls": 1772,
+    "successful_calls": 1450,
+    "failed_calls": 1773,
     "failure_rate": 0.55,
     "models_succeeded": {
      "qwen/qwen3.8-27b": 755,
-     "openai/gpt-oss-120b": 694
+     "openai/gpt-oss-120b": 695
     },
     "kinds": {
      "quota_minute": {
       "label": "分の上限 (本文に待ち時間)",
-      "count": 659,
-      "days_with_event": 33,
+      "count": 660,
+      "days_with_event": 34,
       "by_hour_utc": [
        11,
        7,
@@ -610,7 +610,7 @@
        22,
        14,
        9,
-       16,
+       17,
        18,
        21,
        10,
@@ -632,7 +632,7 @@
       "body_templates": [
        {
         "text": "{\"error\":{\"message\":\"Request too large for model `qwen/qwen3.8-27b` in organization `<id>` service t",
-        "n": 310
+        "n": 311
        },
        {
         "text": "{\"error\":{\"message\":\"Rate limit reached for model `qwen/qwen3.8-27b` in organization `<id>` service ",
@@ -818,15 +818,15 @@
    "observed": {
     "period": [
      "2026-10-04",
-     "2026-11-10"
+     "2026-11-12"
     ],
-    "successful_calls": 743,
+    "successful_calls": 745,
     "failed_calls": 232,
-    "failure_rate": 0.238,
+    "failure_rate": 0.237,
     "models_succeeded": {
-     "nvidia/nemotron-3-ultra-550b-a55b:free": 367,
+     "nvidia/nemotron-3-ultra-550b-a55b:free": 368,
      "nvidia/nemotron-3-super-120b-a12b:free": 194,
-     "nvidia/nemotron-3.5-lightning:free": 106,
+     "nvidia/nemotron-3.5-lightning:free": 107,
      "dots-studio/dots-3-note-preview:free": 76
     },
     "kinds": {
@@ -1078,14 +1078,14 @@
    "observed_notes": [],
    "observed": {
     "period": [
-     "2026-09-12",
+     "2026-09-13",
      "2026-11-08"
     ],
-    "successful_calls": 521,
+    "successful_calls": 496,
     "failed_calls": 1046,
-    "failure_rate": 0.668,
+    "failure_rate": 0.678,
     "models_succeeded": {
-     "qwen-plus-2025-07-28": 272,
+     "qwen-plus-2025-07-28": 247,
      "qwen3.5-plus-2026-02-15": 154,
      "qwen3-max": 61,
      "qwen3.7-plus": 34
