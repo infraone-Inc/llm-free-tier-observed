@@ -1,6 +1,6 @@
 {
  "dataset": "llm-free-tier-observed",
- "version": "2026-11-17",
+ "version": "2026-11-18",
  "publisher": "株式会社インフラワン (InfraOne Inc.)",
  "url": "https://infraone.jp/data/llm-free-tier/",
  "license": "CC BY 4.0",
@@ -39,15 +39,15 @@
    "observed": {
     "period": [
      "2026-09-22",
-     "2026-11-17"
+     "2026-11-18"
     ],
-    "successful_calls": 1477,
-    "failed_calls": 6930,
-    "failure_rate": 0.824,
+    "successful_calls": 1497,
+    "failed_calls": 6938,
+    "failure_rate": 0.823,
     "models_succeeded": {
-     "@cf/openai/gpt-oss-120b": 639,
-     "@cf/meta/llama-3.3-70b-instruct-fp8-fast": 435,
-     "@cf/mistralai/mistral-small-3.1-24b-instruct": 304,
+     "@cf/openai/gpt-oss-120b": 653,
+     "@cf/meta/llama-3.3-70b-instruct-fp8-fast": 439,
+     "@cf/mistralai/mistral-small-3.1-24b-instruct": 306,
      "@cf/cloudflare/clef-flash": 50,
      "@cf/qwen/qwen3.8-27b": 49
     },
@@ -121,8 +121,8 @@
      },
      "other": {
       "label": "その他",
-      "count": 309,
-      "days_with_event": 33,
+      "count": 311,
+      "days_with_event": 34,
       "by_hour_utc": [
        15,
        1,
@@ -131,13 +131,13 @@
        5,
        7,
        24,
-       3,
+       4,
        12,
        1,
        6,
        10,
        28,
-       16,
+       17,
        21,
        15,
        16,
@@ -156,25 +156,25 @@
        },
        {
         "text": "reply was not the requested token=[REDACTED]",
-        "n": 38
+        "n": 39
        },
        {
         "text": "reply was not the requested token: <|start|>",
-        "n": 16
+        "n": 17
        }
       ],
       "details": {},
       "hours_to_next_success": {
-       "n": 309,
-       "median": 6.2,
+       "n": 311,
+       "median": 6.1,
        "p90": 38.1,
        "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
       }
      },
      "timeout": {
       "label": "応答の時間切れ",
-      "count": 132,
-      "days_with_event": 34,
+      "count": 138,
+      "days_with_event": 35,
       "by_hour_utc": [
        1,
        2,
@@ -190,7 +190,7 @@
        5,
        13,
        25,
-       4,
+       10,
        11,
        7,
        7,
@@ -204,14 +204,14 @@
       "body_templates": [
        {
         "text": "The read operation timed out",
-        "n": 132
+        "n": 138
        }
       ],
       "details": {},
       "hours_to_next_success": {
-       "n": 132,
+       "n": 138,
        "median": 0.0,
-       "p90": 3.1,
+       "p90": 2.9,
        "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
       }
      }
@@ -258,63 +258,63 @@
    ],
    "observed": {
     "period": [
-     "2026-09-18",
-     "2026-11-17"
+     "2026-09-19",
+     "2026-11-18"
     ],
-    "successful_calls": 8473,
-    "failed_calls": 5702,
+    "successful_calls": 8518,
+    "failed_calls": 5721,
     "failure_rate": 0.402,
     "models_succeeded": {
-     "gemini-3.5-flash-lite": 3203,
-     "gemini-3.1-flash-lite": 2647,
-     "gemma-4-26b-a4b-it": 862,
+     "gemini-3.5-flash-lite": 3221,
+     "gemini-3.1-flash-lite": 2672,
+     "gemma-4-26b-a4b-it": 884,
      "gemini-3.5-flash": 672,
      "gemini-3.6-flash": 443,
-     "gemini-3.7-flash": 399,
+     "gemini-3.7-flash": 379,
      "gemini-3.8-flash": 247
     },
     "kinds": {
      "overloaded": {
       "label": "事業者の混雑 (503)",
-      "count": 1465,
+      "count": 1477,
       "days_with_event": 59,
       "by_hour_utc": [
-       16,
-       38,
+       19,
+       37,
        21,
        30,
-       37,
+       38,
        23,
        14,
-       52,
-       61,
-       57,
+       51,
+       60,
+       55,
        67,
        68,
        89,
+       121,
+       65,
        123,
-       54,
-       126,
-       142,
-       126,
+       143,
+       129,
        119,
-       94,
-       51,
+       93,
+       53,
        20,
        7,
-       30
+       32
       ],
       "body_templates": [
        {
         "text": "{ \"error\": { \"code\": 503, \"message\": \"This model is currently experiencing high demand. Spikes in…",
-        "n": 1465
+        "n": 1477
        }
       ],
       "details": {},
       "hours_to_next_success": {
-       "n": 1465,
+       "n": 1477,
        "median": 0.0,
-       "p90": 0.3,
+       "p90": 0.2,
        "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
       }
      },
@@ -409,8 +409,8 @@
      },
      "timeout": {
       "label": "応答の時間切れ",
-      "count": 1024,
-      "days_with_event": 47,
+      "count": 1031,
+      "days_with_event": 48,
       "by_hour_utc": [
        20,
        16,
@@ -426,7 +426,7 @@
        47,
        68,
        114,
-       59,
+       66,
        74,
        99,
        69,
@@ -440,12 +440,12 @@
       "body_templates": [
        {
         "text": "The read operation timed out",
-        "n": 1024
+        "n": 1031
        }
       ],
       "details": {},
       "hours_to_next_success": {
-       "n": 1024,
+       "n": 1031,
        "median": 0.0,
        "p90": 0.3,
        "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
@@ -589,13 +589,13 @@
    "observed": {
     "period": [
      "2026-10-04",
-     "2026-11-17"
+     "2026-11-18"
     ],
-    "successful_calls": 1524,
+    "successful_calls": 1525,
     "failed_calls": 1798,
     "failure_rate": 0.541,
     "models_succeeded": {
-     "qwen/qwen3.8-27b": 804,
+     "qwen/qwen3.8-27b": 805,
      "openai/gpt-oss-120b": 720
     },
     "kinds": {
@@ -818,15 +818,15 @@
    "observed": {
     "period": [
      "2026-10-04",
-     "2026-11-17"
+     "2026-11-18"
     ],
-    "successful_calls": 767,
+    "successful_calls": 769,
     "failed_calls": 236,
     "failure_rate": 0.235,
     "models_succeeded": {
-     "nvidia/nemotron-3-ultra-550b-a55b:free": 385,
+     "nvidia/nemotron-3-ultra-550b-a55b:free": 386,
      "nvidia/nemotron-3-super-120b-a12b:free": 194,
-     "nvidia/nemotron-3.5-lightning:free": 109,
+     "nvidia/nemotron-3.5-lightning:free": 110,
      "dots-studio/dots-3-note-preview:free": 79
     },
     "kinds": {
@@ -1078,15 +1078,15 @@
    "observed_notes": [],
    "observed": {
     "period": [
-     "2026-09-18",
+     "2026-09-19",
      "2026-11-16"
     ],
-    "successful_calls": 409,
+    "successful_calls": 378,
     "failed_calls": 1068,
-    "failure_rate": 0.723,
+    "failure_rate": 0.739,
     "models_succeeded": {
-     "qwen-plus-2025-07-28": 160,
      "qwen3.5-plus-2026-02-15": 154,
+     "qwen-plus-2025-07-28": 129,
      "qwen3-max": 61,
      "qwen3.7-plus": 34
     },
