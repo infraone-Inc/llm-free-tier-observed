@@ -1,6 +1,6 @@
 {
  "dataset": "llm-free-tier-observed",
- "version": "2026-11-25",
+ "version": "2026-11-26",
  "publisher": "株式会社インフラワン (InfraOne Inc.)",
  "url": "https://infraone.jp/data/llm-free-tier/",
  "license": "CC BY 4.0",
@@ -38,61 +38,61 @@
    "observed_notes": [],
    "observed": {
     "period": [
-     "2026-09-26",
-     "2026-11-25"
+     "2026-09-27",
+     "2026-11-26"
     ],
-    "successful_calls": 1298,
-    "failed_calls": 6448,
-    "failure_rate": 0.832,
+    "successful_calls": 1305,
+    "failed_calls": 6388,
+    "failure_rate": 0.83,
     "models_succeeded": {
-     "@cf/openai/gpt-oss-120b": 675,
-     "@cf/mistralai/mistral-small-3.1-24b-instruct": 272,
-     "@cf/meta/llama-3.3-70b-instruct-fp8-fast": 255,
+     "@cf/openai/gpt-oss-120b": 685,
+     "@cf/mistralai/mistral-small-3.1-24b-instruct": 274,
+     "@cf/meta/llama-3.3-70b-instruct-fp8-fast": 253,
      "@cf/cloudflare/clef-flash": 51,
-     "@cf/qwen/qwen3.8-27b": 45
+     "@cf/qwen/qwen3.8-27b": 42
     },
     "kinds": {
      "quota_day": {
       "label": "1日の無料の割り当てを使い切った",
-      "count": 5970,
-      "days_with_event": 24,
+      "count": 5903,
+      "days_with_event": 23,
       "by_hour_utc": [
-       191,
-       52,
-       155,
-       178,
-       128,
-       57,
+       188,
+       46,
+       150,
+       177,
+       127,
+       55,
        175,
-       209,
-       197,
+       208,
+       196,
        217,
        212,
        216,
        368,
        374,
-       366,
-       393,
+       361,
+       390,
+       428,
+       416,
        430,
-       419,
-       435,
-       274,
-       274,
-       228,
-       226,
-       196
+       266,
+       270,
+       223,
+       223,
+       187
       ],
       "body_templates": [
        {
         "text": "{\"errors\":[{\"message\":\"AiError: AiError: you have used up your daily free allocation of 10,000…",
-        "n": 5970
+        "n": 5903
        }
       ],
       "details": {},
       "reset_check": {
-       "resets": 24,
+       "resets": 23,
        "first_call_after_reset_succeeded": 10,
-       "first_call_after_reset_still_limited": 12,
+       "first_call_after_reset_still_limited": 11,
        "no_call_within_6h_or_other_error": 2,
        "minutes_to_first_success_after_reset": {
         "n": 14,
@@ -120,8 +120,8 @@
      },
      "other": {
       "label": "その他",
-      "count": 318,
-      "days_with_event": 38,
+      "count": 319,
+      "days_with_event": 39,
       "by_hour_utc": [
        15,
        1,
@@ -145,7 +145,7 @@
        22,
        13,
        18,
-       12,
+       13,
        12
       ],
       "body_templates": [
@@ -155,7 +155,7 @@
        },
        {
         "text": "reply was not the requested token=[REDACTED]",
-        "n": 43
+        "n": 44
        },
        {
         "text": "reply was not the requested token: <|start|>",
@@ -164,7 +164,7 @@
       ],
       "details": {},
       "hours_to_next_success": {
-       "n": 318,
+       "n": 319,
        "median": 6.0,
        "p90": 38.0,
        "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
@@ -172,8 +172,8 @@
      },
      "timeout": {
       "label": "応答の時間切れ",
-      "count": 160,
-      "days_with_event": 42,
+      "count": 166,
+      "days_with_event": 43,
       "by_hour_utc": [
        1,
        2,
@@ -190,25 +190,25 @@
        13,
        25,
        24,
-       12,
+       14,
        7,
        7,
        7,
        9,
        10,
-       3,
-       7,
+       4,
+       10,
        0
       ],
       "body_templates": [
        {
         "text": "The read operation timed out",
-        "n": 160
+        "n": 166
        }
       ],
       "details": {},
       "hours_to_next_success": {
-       "n": 160,
+       "n": 166,
        "median": 0.0,
        "p90": 2.7,
        "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
@@ -257,77 +257,33 @@
    ],
    "observed": {
     "period": [
-     "2026-09-26",
-     "2026-11-25"
+     "2026-09-27",
+     "2026-11-26"
     ],
-    "successful_calls": 8261,
-    "failed_calls": 4939,
-    "failure_rate": 0.374,
+    "successful_calls": 8283,
+    "failed_calls": 4932,
+    "failure_rate": 0.373,
     "models_succeeded": {
-     "gemini-3.5-flash-lite": 3366,
-     "gemini-3.1-flash-lite": 2891,
-     "gemma-4-26b-a4b-it": 969,
-     "gemini-3.6-flash": 459,
-     "gemini-3.8-flash": 252,
-     "gemini-3.5-flash": 201,
-     "gemini-3.7-flash": 123
+     "gemini-3.5-flash-lite": 3390,
+     "gemini-3.1-flash-lite": 2907,
+     "gemma-4-26b-a4b-it": 975,
+     "gemini-3.6-flash": 460,
+     "gemini-3.8-flash": 256,
+     "gemini-3.5-flash": 195,
+     "gemini-3.7-flash": 100
     },
     "kinds": {
-     "overloaded": {
-      "label": "事業者の混雑 (503)",
-      "count": 1724,
-      "days_with_event": 59,
-      "by_hour_utc": [
-       24,
-       42,
-       31,
-       36,
-       39,
-       24,
-       11,
-       47,
-       57,
-       76,
-       68,
-       67,
-       82,
-       114,
-       141,
-       159,
-       150,
-       137,
-       147,
-       97,
-       55,
-       46,
-       24,
-       50
-      ],
-      "body_templates": [
-       {
-        "text": "{ \"error\": { \"code\": 503, \"message\": \"This model is currently experiencing high demand. Spikes in…",
-        "n": 1724
-       }
-      ],
-      "details": {},
-      "hours_to_next_success": {
-       "n": 1724,
-       "median": 0.0,
-       "p90": 0.1,
-       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
-      }
-     },
      "quota_day": {
       "label": "上限 (本文の冒頭だけでは分・日の区別が付かない。回復までの時間で日の上限と判断)",
-      "count": 1525,
-      "days_with_event": 40,
+      "count": 1471,
+      "days_with_event": 41,
       "by_hour_utc": [
        61,
        71,
-       87,
-       87,
-       47,
-       40,
+       86,
+       84,
+       46,
+       39,
        39,
        15,
        28,
@@ -336,21 +292,21 @@
        120,
        79,
        93,
-       107,
-       92,
+       105,
+       88,
+       55,
        57,
-       61,
-       73,
-       77,
-       40,
-       46,
+       62,
+       62,
+       36,
+       39,
        70,
-       54
+       55
       ],
       "body_templates": [
        {
         "text": "{ \"error\": { \"code\": 429, \"message\": \"You exceeded your current quota, please check your plan and…",
-        "n": 1525
+        "n": 1471
        }
       ],
       "details": {
@@ -364,8 +320,8 @@
         20
        ],
        "retry_delay_s_samples": {
-        "median": 43007.0,
-        "n": 121
+        "median": 42161.0,
+        "n": 123
        },
        "models": [
         "gemini-3.5-flash",
@@ -377,9 +333,9 @@
       },
       "reset_check": {
        "resets": 37,
-       "first_call_after_reset_succeeded": 26,
+       "first_call_after_reset_succeeded": 25,
        "first_call_after_reset_still_limited": 0,
-       "no_call_within_6h_or_other_error": 11,
+       "no_call_within_6h_or_other_error": 12,
        "minutes_to_first_success_after_reset": {
         "n": 11,
         "median": 5.4,
@@ -401,15 +357,59 @@
        }
       }
      },
+     "overloaded": {
+      "label": "事業者の混雑 (503)",
+      "count": 1763,
+      "days_with_event": 58,
+      "by_hour_utc": [
+       25,
+       42,
+       31,
+       37,
+       40,
+       24,
+       11,
+       46,
+       57,
+       76,
+       68,
+       67,
+       82,
+       113,
+       164,
+       172,
+       150,
+       136,
+       147,
+       97,
+       55,
+       46,
+       26,
+       51
+      ],
+      "body_templates": [
+       {
+        "text": "{ \"error\": { \"code\": 503, \"message\": \"This model is currently experiencing high demand. Spikes in…",
+        "n": 1763
+       }
+      ],
+      "details": {},
+      "hours_to_next_success": {
+       "n": 1763,
+       "median": 0.0,
+       "p90": 0.1,
+       "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
+      }
+     },
      "timeout": {
       "label": "応答の時間切れ",
-      "count": 1098,
-      "days_with_event": 52,
+      "count": 1106,
+      "days_with_event": 54,
       "by_hour_utc": [
        19,
        16,
        29,
-       23,
+       25,
        25,
        26,
        15,
@@ -420,26 +420,26 @@
        47,
        68,
        115,
-       102,
+       103,
        74,
        99,
        70,
        56,
        38,
        24,
-       23,
-       33,
-       25
+       24,
+       35,
+       27
       ],
       "body_templates": [
        {
         "text": "The read operation timed out",
-        "n": 1098
+        "n": 1106
        }
       ],
       "details": {},
       "hours_to_next_success": {
-       "n": 1098,
+       "n": 1106,
        "median": 0.0,
        "p90": 0.3,
        "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
@@ -585,25 +585,25 @@
    "observed": {
     "period": [
      "2026-10-04",
-     "2026-11-25"
+     "2026-11-26"
     ],
-    "successful_calls": 1687,
-    "failed_calls": 1839,
-    "failure_rate": 0.522,
+    "successful_calls": 1710,
+    "failed_calls": 1848,
+    "failure_rate": 0.519,
     "models_succeeded": {
-     "qwen/qwen3.8-27b": 874,
-     "openai/gpt-oss-120b": 813
+     "qwen/qwen3.8-27b": 886,
+     "openai/gpt-oss-120b": 824
     },
     "kinds": {
      "quota_minute": {
       "label": "分の上限 (本文に待ち時間)",
-      "count": 726,
-      "days_with_event": 43,
+      "count": 735,
+      "days_with_event": 44,
       "by_hour_utc": [
        14,
-       12,
-       17,
-       22,
+       13,
+       18,
+       24,
        15,
        9,
        17,
@@ -622,21 +622,21 @@
        24,
        16,
        55,
-       38,
-       26
+       39,
+       30
       ],
       "body_templates": [
        {
         "text": "{\"error\":{\"message\":\"Request too large for model `qwen/qwen3.8-27b` in organization `<id>` service…",
-        "n": 335
+        "n": 337
+       },
+       {
+        "text": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `<id>`…",
+        "n": 200
        },
        {
         "text": "{\"error\":{\"message\":\"Rate limit reached for model `qwen/qwen3.8-27b` in organization `<id>` service…",
         "n": 194
-       },
-       {
-        "text": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `<id>`…",
-        "n": 193
        }
       ],
       "details": {}
@@ -814,15 +814,15 @@
    "observed": {
     "period": [
      "2026-10-04",
-     "2026-11-25"
+     "2026-11-26"
     ],
-    "successful_calls": 847,
-    "failed_calls": 257,
-    "failure_rate": 0.233,
+    "successful_calls": 856,
+    "failed_calls": 287,
+    "failure_rate": 0.251,
     "models_succeeded": {
-     "nvidia/nemotron-3-ultra-550b-a55b:free": 453,
+     "nvidia/nemotron-3-ultra-550b-a55b:free": 461,
      "nvidia/nemotron-3-super-120b-a12b:free": 194,
-     "nvidia/nemotron-3.5-lightning:free": 117,
+     "nvidia/nemotron-3.5-lightning:free": 118,
      "dots-studio/dots-3-note-preview:free": 83
     },
     "kinds": {
@@ -918,8 +918,8 @@
      },
      "timeout": {
       "label": "応答の時間切れ",
-      "count": 43,
-      "days_with_event": 5,
+      "count": 72,
+      "days_with_event": 6,
       "by_hour_utc": [
        4,
        2,
@@ -944,25 +944,25 @@
        0,
        0,
        4,
-       4
+       33
       ],
       "body_templates": [
        {
         "text": "The read operation timed out",
-        "n": 43
+        "n": 72
        }
       ],
       "details": {},
       "hours_to_next_success": {
-       "n": 43,
-       "median": 0.8,
+       "n": 72,
+       "median": 1.1,
        "p90": 1.5,
        "caveat": "当社の次の呼び出しまでの時間を含む (上限そのものの回復時間ではない)"
       }
      },
      "not_found": {
       "label": "モデルが無い (404)",
-      "count": 55,
+      "count": 56,
       "days_with_event": 9,
       "by_hour_utc": [
        6,
@@ -987,7 +987,7 @@
        4,
        1,
        6,
-       3,
+       4,
        4
       ],
       "body_templates": [
@@ -997,7 +997,7 @@
        },
        {
         "text": "{\"error\":{\"message\":\"dots-studio/dots-3-note-preview:free is no longer available on OpenRouter: no…",
-        "n": 1
+        "n": 2
        }
       ],
       "details": {}
@@ -1078,28 +1078,28 @@
    "observed_notes": [],
    "observed": {
     "period": [
-     "2026-09-26",
-     "2026-11-25"
+     "2026-09-27",
+     "2026-11-26"
     ],
-    "successful_calls": 158,
-    "failed_calls": 1159,
-    "failure_rate": 0.88,
+    "successful_calls": 146,
+    "failed_calls": 1175,
+    "failure_rate": 0.889,
     "models_succeeded": {
-     "qwen3.5-plus-2026-02-15": 104,
+     "qwen3.5-plus-2026-02-15": 92,
      "qwen3-max": 33,
      "qwen3.7-plus": 21
     },
     "kinds": {
      "quota_total": {
       "label": "無料枠の総量を使い切った (Free Quota Only で停止)",
-      "count": 572,
-      "days_with_event": 43,
+      "count": 580,
+      "days_with_event": 44,
       "by_hour_utc": [
-       32,
-       23,
-       21,
-       27,
-       31,
+       35,
+       24,
+       22,
+       28,
+       33,
        26,
        23,
        19,
@@ -1123,7 +1123,7 @@
       "body_templates": [
        {
         "text": "{\"error\":{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"Allocation quota: free tier only\"}}",
-        "n": 571
+        "n": 579
        },
        {
         "text": "{\"error\":{\"message\":\"Free quota exhausted. To continue accessing the model on a paid basis, please…",
@@ -1178,14 +1178,14 @@
      },
      "other": {
       "label": "その他",
-      "count": 571,
-      "days_with_event": 42,
+      "count": 579,
+      "days_with_event": 43,
       "by_hour_utc": [
-       31,
-       23,
-       21,
-       27,
-       32,
+       34,
+       24,
+       22,
+       28,
+       34,
        26,
        22,
        19,
@@ -1213,7 +1213,7 @@
        },
        {
         "text": "{\"error\":{\"message\":\"Invalid API-key provided. For details, see:…",
-        "n": 59
+        "n": 67
        }
       ],
       "details": {},
